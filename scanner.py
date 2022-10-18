@@ -22,7 +22,7 @@ def tryLogin(ipList):
         try:
             ftp = ftplib.FTP(ipAddress)
             ftp.login('anonymous', '')
-            print(f'{ipAddress} anonymous login SUCCESS.')
+            print(f'{ipAddress} anonymous login *SUCCESS*.')
             ftp.quit()
         except Exception as e:
             print(f'{ipAddress} anonymous login FAILED.')
