@@ -1,7 +1,7 @@
 # anon-ftp-scanner
 Simple anonymous FTP scanner
 
-#### usage
+## usage
 for single IP address:
 ```./scanner.py -i 192.168.1.1```
 
