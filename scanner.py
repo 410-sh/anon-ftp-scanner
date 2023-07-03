@@ -1,23 +1,13 @@
+#!/usr/bin/python3
 import ftplib
+import argparse
 
+def tryLogin(fileName):
+    ipList = []    
+    with open(fileName, 'r') as file:
+        for line in file:
+            ipList.append(line.strip())
 
-def getHosts():
-    ipList = []
-    inputOption = input('Would you like to:\n(1) Scan a single host\n(2) Scan a list from a file: ')
-    if inputOption == '1':
-        ipList = [input('Enter the IP/hostname to scan: ').strip()]
-    elif inputOption == '2':
-        fileName = input("Enter the file name: ")
-        with open(fileName, 'r') as file:
-            for line in file:
-                ipList.append(line.strip())
-    else:
-        print('\ninvalid option. try again\n')
-        getHosts()
-    return ipList
-
-
-def tryLogin(ipList):
     for ipAddress in ipList:
         try:
             ftp = ftplib.FTP(ipAddress)
@@ -27,6 +17,34 @@ def tryLogin(ipList):
         except Exception as e:
             print(f'{ipAddress} anonymous login FAILED.')
 
+parser = argparse.ArgumentParser(
+        prog='',
+        description='Anonymous FTP scanner',
+        add_help=True
+        )
 
-ipList = getHosts()
-tryLogin(ipList)
+parser.add_argument("-i", type=str, required=False, help="Single IP to scan")
+parser.add_argument("-l", type=str, required=False, help="List of IPs to scan")
+options = parser.parse_args()
+# Check against one host
+if options.i:
+    ipAddr = options.i
+    try:
+        print('test')
+        ftp = ftplib.FTP(ipAddr)
+        ftp.login('anonymous', '')
+        print('test2')
+        print(f'{ipAddr} anonymous login *SUCCESS*.')
+        ftp.quit()
+        print('test3')
+    except Exception as e:
+        print(f'{ipAddr} anonymous login FAILED.')
+
+# If IP list file, pass file name to function
+if options.l:
+    tryLogin(str(options.l))
+
+#If no options selected, stop
+if not any(vars(options).values()):
+    parser.error("No arguments provided. Must either enter one IP or list of IPs to scan with options `-i` for single IP address or `-l` for a list of IP addresses.")
+
