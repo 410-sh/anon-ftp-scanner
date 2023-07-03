@@ -20,8 +20,7 @@ def tryLogin(fileName):
 parser = argparse.ArgumentParser(
         prog='',
         description='Anonymous FTP scanner',
-        add_help=True
-        )
+        add_help=True)
 
 parser.add_argument("-i", type=str, required=False, help="Single IP to scan")
 parser.add_argument("-l", type=str, required=False, help="List of IPs to scan")
@@ -30,13 +29,10 @@ options = parser.parse_args()
 if options.i:
     ipAddr = options.i
     try:
-        print('test')
         ftp = ftplib.FTP(ipAddr)
         ftp.login('anonymous', '')
-        print('test2')
         print(f'{ipAddr} anonymous login *SUCCESS*.')
         ftp.quit()
-        print('test3')
     except Exception as e:
         print(f'{ipAddr} anonymous login FAILED.')
 
