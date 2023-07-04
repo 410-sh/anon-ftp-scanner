@@ -17,7 +17,6 @@ def tryLogin(fileName):
         except Exception as e:
             print(f'{ipAddress} anonymous login FAILED.')
 
-
 try:
     parser = argparse.ArgumentParser(
             prog='',
