@@ -10,7 +10,7 @@ def tryLogin(fileName):
 
     for ipAddress in ipList:
         try:
-            ftp = ftplib.FTP(ipAddress)
+            ftp = ftplib.FTP(ipAddress, timeout=5)
             ftp.login('anonymous', '')
             print(f'{ipAddress} anonymous login *SUCCESS*.')
             ftp.quit()
@@ -30,7 +30,7 @@ try:
     if options.i:
         ipAddr = options.i
         try:
-            ftp = ftplib.FTP(ipAddr)
+            ftp = ftplib.FTP(ipAddr, timeout=10)
             ftp.login('anonymous', '')
             print(f'{ipAddr} anonymous login *SUCCESS*.')
             ftp.quit()
