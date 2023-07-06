@@ -30,7 +30,7 @@ try:
     if options.i:
         ipAddr = options.i
         try:
-            ftp = ftplib.FTP(ipAddr, timeout=10)
+            ftp = ftplib.FTP(ipAddr, timeout=5)
             ftp.login('anonymous', '')
             print(f'{ipAddr} anonymous login *SUCCESS*.')
             ftp.quit()
